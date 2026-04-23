@@ -1,40 +1,102 @@
-﻿# Dependencies
+﻿# ============================================
+# Dependencies
+# ============================================
 node_modules/
 .pnpm-store/
 
+# ============================================
 # Next.js
+# ============================================
 .next/
 out/
 
+# ============================================
 # Tauri
+# ============================================
 src-tauri/target/
 src-tauri/gen/schemas/
 
-# Environment
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+backend/.venv/
+backend/venv/
+
+# PyInstaller build artifacts
+backend/build/
+backend/dist/
+*.spec
+
+# ============================================
+# Secrets & Environment
+# ============================================
 .env
 .env.local
-.env*.local
+.env.*.local
+*.key
+*.pem
+secrets/
+credentials.json
 
+# ============================================
+# AI Models & Large Files
+# ============================================
+*.bin
+*.safetensors
+*.gguf
+*.onnx
+*.pt
+*.pth
+*.ckpt
+models/
+checkpoints/
+
+# ============================================
+# Databases & User Data
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+data/
+user_data/
+
+# ============================================
 # IDE
+# ============================================
 .vscode/
 .idea/
 *.swp
+*.swo
 
+# ============================================
 # OS
+# ============================================
 .DS_Store
 Thumbs.db
+desktop.ini
 
+# ============================================
 # Logs
+# ============================================
 *.log
+logs/
 npm-debug.log*
 pnpm-debug.log*
 
+# ============================================
 # TypeScript
+# ============================================
 *.tsbuildinfo
 next-env.d.ts
-
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.pytest_cache/
