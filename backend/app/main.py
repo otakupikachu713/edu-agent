@@ -84,3 +84,26 @@ def ping(echo: str | None = None):
     Optional query parameter: ?echo=hello
     """
     return PingResponse(message="pong", echo=echo)
+
+# ============================================================
+# Entry point when running as a script or frozen executable
+# ============================================================
+def start():
+    """Start the uvicorn server. Used by PyInstaller entry point."""
+    import uvicorn
+    import os
+
+    # Port can be overridden via env var (Tauri will set this in production)
+    port = int(os.environ.get("EDU_AGENT_PORT", "8765"))
+    host = os.environ.get("EDU_AGENT_HOST", "127.0.0.1")
+
+    uvicorn.run(
+        app,
+        host=host,
+        port=port,
+        log_level="info",
+    )
+
+
+if __name__ == "__main__":
+    start()
