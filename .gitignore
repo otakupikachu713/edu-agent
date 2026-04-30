@@ -100,3 +100,7 @@ pnpm-debug.log*
 # ============================================
 *.tsbuildinfo
 next-env.d.ts
+
+# Scratch / experimental scripts
+scratch_*.py
+*_scratch.py
