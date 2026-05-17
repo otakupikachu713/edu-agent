@@ -4,13 +4,20 @@ EduAgent Backend - Main FastAPI application.
 This is the entry point of the backend service.
 Run with: uvicorn app.main:app --reload --port 8765
 """
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, timezone
 import platform
 import sys
 
+from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+# Load .env before importing routers — chat.py reads OPENAI_API_KEY at request time,
+# but other future modules may read env at import time.
+load_dotenv()
+
+from app.routes import chat
 # ============================================================
 # App instance
 # ============================================================
@@ -19,7 +26,7 @@ app = FastAPI(
     description="Backend service for the EduAgent desktop application.",
     version="0.1.0",
 )
-
+app.include_router(chat.router)
 # ============================================================
 # CORS configuration
 # Allow the Next.js frontend (dev: 3000, prod: tauri://localhost) to call us.
@@ -60,7 +67,6 @@ class PingResponse(BaseModel):
 def root():
     return {"message": "Hello! 🎉"}
 
-
 @app.get("/health", response_model=HealthResponse)
 def health_check():
     """
@@ -71,7 +77,7 @@ def health_check():
         status="ok",
         service="edu-agent-backend",
         version="0.1.0",
-        timestamp=datetime.utcnow().isoformat() + "Z",
+        timestamp=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         python_version=sys.version.split()[0],
         platform=platform.system(),
     )

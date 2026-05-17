@@ -38,6 +38,8 @@ backend/venv/
 backend/build/
 backend/dist/
 *.spec
+# Copy of PyInstaller output used by Tauri bundling — regenerated, don't commit
+src-tauri/resources/edu-agent-backend/
 
 # ============================================
 # Secrets & Environment
